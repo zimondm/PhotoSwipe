@@ -1,4 +1,4 @@
-/*! PhotoSwipe - v4.1.3 - 2019-01-08
+/*! PhotoSwipe - v4.1.3 - 2019-01-22
 * http://photoswipe.com
 * Copyright (c) 2019 Dmitry Semenov; */
 (function (root, factory) { 
@@ -3247,7 +3247,12 @@ _registerModule('Tap', {
 					return;
 				}
 
+				// Fix for share buttons zooming image.
+				// @see https://github.com/dimsemenov/PhotoSwipe/issues/1198
 				var clickedTagName = e.target.tagName.toUpperCase();
+				if (clickedTagName === "A") {
+					return;
+				}
 				// avoid double tap delay on buttons and elements that have class pswp__single-tap
 				if(clickedTagName === 'BUTTON' || framework.hasClass(e.target, 'pswp__single-tap') ) {
 					_dispatchTapEvent(e, releasePoint);
